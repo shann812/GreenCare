@@ -1,0 +1,6 @@
+@GreenCareApi_HostAddress = http://localhost:5190
+
+GET {{GreenCareApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
