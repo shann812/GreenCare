@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using GreenCareApi.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 
 public class ApplicationDbContext : DbContext
@@ -9,5 +10,6 @@ public class ApplicationDbContext : DbContext
     {
 	}
 
-    //models will go here
+    public DbSet<User> Users => Set<User>();
+    public DbSet<Role> Roles => Set<Role>();
 }
