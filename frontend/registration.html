@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+</head>
+<body>
+    <form id="registrationForm">
+        <p>Enter your login:</p>
+        <input type="text" id="login" placeholder="YourLogin" required><br>
+        <p>Enter your email:</p>
+        <input type="email" id="email" placeholder="yourEmail@email.com" required><br>
+        <p>Enter your password:</p>
+        <input type="password" id="password" placeholder="*******" minlength="6" maxlength="20" required><br>
+        <p class="smaller then usual text">password must be 6-20 characters</p><br>
+        <p>Repeat password:</p>
+        <input type="password" id="passwordRepeat" placeholder="*******" minlength="6" maxlength="20" required>
+        
+        <button type="submit">Create account</button>
+    </form>
+ </body>
+
+<script type="module" src="/src/js/pages/registration.js"></script>
+</html>
