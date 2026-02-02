@@ -1,16 +1,36 @@
 import { AccountService } from "../services/AccountService";
+import { Validator } from "../validators/validator";
+import { UIHelper } from "../shared/UIHelper";
 
 const registrationForm = document.getElementById('registrationForm');
+const login = document.getElementById('login');
+const email = document.getElementById('email');
+const password = document.getElementById('password');
+const passwordRepeat = document.getElementById('passwordRepeat');
+
 
 registrationForm.addEventListener('submit', async function(e) {
-    e.defaultPrevented();
+    e.preventDefault();
 
-    var registUser = {
-        login: document.getElementById('login'),
-        email: document.getElementById('email'),
-        password: document.getElementById('password'),
-        passwordRepeat: document.getElementById('passwordRepeat')
+    var user = {
+        login: login.value.trim(),
+        email: email.value.trim(),
+        password: password.value,
+        passwordRepeat: passwordRepeat.value
     }
 
-    await AccountService.registUser(registUser);
+    const errors = Validator.validateUserRegistration(user);
+    if(errors.length > 0){
+        UIHelper.showErrors(errors);
+        return;
+    }   
+
+    try{
+        await AccountService.registUser(user);
+        UIHelper.showSuccess('Account created');
+        //to main
+    }
+    catch(errors){
+        UIHelper.showErrors(errors);
+    }
 })
