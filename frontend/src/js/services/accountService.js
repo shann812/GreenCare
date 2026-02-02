@@ -1,4 +1,4 @@
-import { ApiClient } from '../api/apiClient';
+import { ApiClient } from '../api/apiClient.js';
 
 export class AccountService{
     static async registUser(user){

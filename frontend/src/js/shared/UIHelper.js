@@ -1,4 +1,4 @@
-import { ToastService } from "./toastService";
+import { ToastService } from "./toastService.js";
 
 export class UIHelper {
 

@@ -1,6 +1,6 @@
-import { AccountService } from "../services/AccountService";
-import { Validator } from "../validators/validator";
-import { UIHelper } from "../shared/UIHelper";
+import { AccountService } from "../services/AccountService.js";
+import { Validator } from "../validators/validator.js";
+import { UIHelper } from "../shared/UIHelper.js";
 
 const registrationForm = document.getElementById('registrationForm');
 const login = document.getElementById('login');
