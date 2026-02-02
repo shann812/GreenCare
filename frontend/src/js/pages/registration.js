@@ -11,4 +11,6 @@ registrationForm.addEventListener('submit', async function(e) {
         password: document.getElementById('password'),
         passwordRepeat: document.getElementById('passwordRepeat')
     }
+
+    await AccountService.registUser(registUser);
 })
