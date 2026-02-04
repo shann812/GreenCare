@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using GreenCareApi.Application.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenCareApi.Presentation.Controllers
@@ -7,5 +7,10 @@ namespace GreenCareApi.Presentation.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
+        [HttpPost("regist")]
+        public async Task<IActionResult> RegistAsync(RegistrationUserDto dto)
+        {
+            return Ok();
+        }
     }
 }
