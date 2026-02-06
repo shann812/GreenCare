@@ -1,3 +1,8 @@
+using GreenCareApi.Application.Interfaces;
+using GreenCareApi.Application.Services;
+using GreenCareApi.Domain.Entities;
+using GreenCareApi.Infrastructure.Persistence;
+using GreenCareApi.Infrastructure.Repositories;
 using GreenCareApi.Presentation.Middleware;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +19,10 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 
