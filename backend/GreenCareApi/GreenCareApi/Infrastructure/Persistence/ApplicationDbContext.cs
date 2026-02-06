@@ -1,7 +1,6 @@
 ﻿using GreenCareApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
 public class ApplicationDbContext : DbContext
 {
 
