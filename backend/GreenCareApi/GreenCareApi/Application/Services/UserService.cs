@@ -1,6 +1,7 @@
 ﻿using GreenCareApi.Application.DTOs.Requests;
 using GreenCareApi.Application.Factories;
 using GreenCareApi.Application.Interfaces;
+using GreenCareApi.Domain.Exceptons;
 using GreenCareApi.Infrastructure.Security;
 
 namespace GreenCareApi.Application.Services
@@ -17,6 +18,10 @@ namespace GreenCareApi.Application.Services
 
         public async Task RegistAsync(RegistrationUserDto dto)
         {
+            var exist = await _userRepo.GetByEmail(dto.Email);
+            if (exist != null)
+                throw new BusinessException("User with this email already exist");
+
             var passwordHash = PasswordHeasher.HashPassword(dto.Password);
             var user = UserRegistrationFactory.Create(dto, passwordHash);
 

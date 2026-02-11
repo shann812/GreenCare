@@ -25,11 +25,11 @@
         </button>
       </div>
 
-      <!-- АВТОРИЗОВАН (скрыт по умолчанию) -->
-      <div class="d-flex align-items-center" id="auth" style="display: none;">
+      <!-- АВТОРИЗОВАН -->
+      <div class="d-flex align-items-center" id="auth">
         <div class="dropdown">
           <a class="nav-link dropdown-toggle fw-medium" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="userNameDisplay">
-            Пользователь
+            User
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="/profile.html">My profile</a></li>
@@ -42,5 +42,36 @@
     </div>
   </div>
 </nav>
+
+<!-- login modal  -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm"> 
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header border-0 pb-1">
+        <h5 class="modal-title fw-semibold fs-5" id="loginModalLabel">Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body px-4 pb-4 pt-2">
+        <form id="loginForm">
+          <div class="mb-3">
+            <label for="email" class="form-label fw-medium text-muted">Email</label>
+            <input type="text" class="form-control rounded-3" id="email" placeholder="your@email.com" required autofocus>
+          </div>
+          <div class="mb-4">
+            <label for="password" class="form-label fw-medium text-muted">Password</label>
+            <input type="password" class="form-control rounded-3" id="password" placeholder="••••••••" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 rounded-3 py-2 fw-medium">
+            Войти
+          </button>
+        </form>
+
+        <div class="text-center mt-3 small text-muted">
+           <a href="/registration.html" class="text-primary text-decoration-none">Create account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3"></div>

@@ -6,7 +6,7 @@
         public string Email { get; set; } = null!;
         public string PasswordHash { get; set; } = null!;
         public DateTime RegistrationDate { get; set; } = DateTime.UtcNow;
-        public string UserName { get; set; } = null!;
+        public string? UserName { get; set; } = null!;
         public string? Bio { get; set; }
         public DateOnly? BirthDate { get; set; }
         public bool IsProfilePublic { get; set; } = true;

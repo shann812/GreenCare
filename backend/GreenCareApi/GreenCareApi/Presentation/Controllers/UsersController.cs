@@ -1,5 +1,7 @@
 ﻿using GreenCareApi.Application.DTOs.Requests;
+using GreenCareApi.Application.Interfaces;
 using GreenCareApi.Application.Services;
+using GreenCareApi.Presentation.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GreenCareApi.Presentation.Controllers
@@ -8,17 +10,17 @@ namespace GreenCareApi.Presentation.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly UserService _userService;
-        public UsersController(UserService userService)
+        private readonly IUserService _userService;
+        public UsersController(IUserService userService)
         {
             _userService = userService;
         }
 
-        [HttpPost("regist")]
+        [HttpPost("register")]
         public async Task<IActionResult> RegistAsync(RegistrationUserDto dto)
         {
             await _userService.RegistAsync(dto);
-            return Ok();
+            return Ok(ApiResponse.Ok());
         }
     }
 }

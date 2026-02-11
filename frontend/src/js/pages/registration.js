@@ -3,7 +3,6 @@ import { Validator } from "../validators/validator.js";
 import { UIHelper } from "../shared/UIHelper.js";
 
 const registrationForm = document.getElementById('registrationForm');
-const login = document.getElementById('login');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const passwordRepeat = document.getElementById('passwordRepeat');

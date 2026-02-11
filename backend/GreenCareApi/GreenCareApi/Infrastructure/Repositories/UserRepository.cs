@@ -18,9 +18,13 @@ namespace GreenCareApi.Infrastructure.Repositories
             => _db.Users.Remove(user);
 
         public async Task<User?> GetById(Guid id)
-            => await _db.Users.FirstOrDefaultAsync(u => u.Id == id);
+            => await _db.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Id == id);
 
         public async Task<User?> GetByEmail(string email)
-            => await _db.Users.FirstOrDefaultAsync(u => u.Email == email);
+            => await _db.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Email == email);
     }
 }

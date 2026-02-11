@@ -15,11 +15,11 @@ export function updateAuthHeader() {
         return;
 
     if(isLoggedIn){
-        notAuth.style.display = 'none';
-        auth.style.display = 'flex';
+        notAuth.classList.add('d-none');
+        auth.classList.remove('d-none');
         document.getElementById('userNameDisplay').textContent = localStorage.getItem('userName') ?? 'Guest';
     } else{
-        notAuth.style.display = 'flex';
-        auth.style.display = 'none';
+        notAuth.classList.remove('d-none');
+        auth.classList.add('d-none');
     }
 }

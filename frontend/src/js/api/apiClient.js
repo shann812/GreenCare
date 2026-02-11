@@ -1,5 +1,5 @@
 export class ApiClient{
-    static basicUrl = 'https://localhost:7181/api';
+    static basicUrl = 'https://localhost:7051/api';
 
     static async request(url, options = {}){
         const token = localStorage.getItem('token');

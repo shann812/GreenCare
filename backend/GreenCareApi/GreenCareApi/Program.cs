@@ -54,7 +54,18 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 
+builder.Services.AddCors(options => 
+{ 
+    options.AddPolicy("AllowAll", policy => 
+    { 
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader(); 
+    }); 
+});
+
 var app = builder.Build();
+app.UseCors("AllowAll");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

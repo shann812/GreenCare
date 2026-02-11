@@ -24,6 +24,8 @@ namespace GreenCareApi.Application.Services
                 throw new BusinessException("Ivalid email or password");
 
             var isPasswordValid = PasswordHeasher.Verify(dto.Password, user.PasswordHash);
+            if (!isPasswordValid)
+                throw new BusinessException("Invalid email or password");
 
             var token = _jwtService.GenerateToken(user);
 

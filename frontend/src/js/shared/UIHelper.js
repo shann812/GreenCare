@@ -15,6 +15,16 @@ export class UIHelper {
             return;
         }
 
+        if (typeof error === 'string') {
+            ToastService.show(error, 'danger');
+            return;
+        }
+
+        if (Array.isArray(error)) {
+            error.forEach(msg => ToastService.show(msg, 'danger'));
+            return;
+        }
+        
         ToastService.show('Unexpected error', 'danger');
     }
 
