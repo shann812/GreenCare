@@ -1,4 +1,4 @@
-﻿using GreenCareApi.Application.DTOs;
+﻿using GreenCareApi.Application.DTOs.Requests;
 using GreenCareApi.Domain.Entities;
 using GreenCareApi.Domain.Enums;
 
@@ -10,11 +10,9 @@ namespace GreenCareApi.Application.Factories
         {
             return new User
             {
-                Login = dto.Login,
                 Email = dto.Email,
                 PasswordHash = passwordHash,
                 RegistrationDate = DateTime.UtcNow,
-                UserName = dto.Login,
                 RoleId = (int)RoleTypes.User
             };
         }

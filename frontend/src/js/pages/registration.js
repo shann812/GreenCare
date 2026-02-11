@@ -13,7 +13,6 @@ registrationForm.addEventListener('submit', async function(e) {
     e.preventDefault();
 
     var user = {
-        login: login.value.trim(),
         email: email.value.trim(),
         password: password.value,
         passwordRepeat: passwordRepeat.value

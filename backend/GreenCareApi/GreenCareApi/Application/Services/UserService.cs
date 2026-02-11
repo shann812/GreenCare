@@ -1,4 +1,4 @@
-﻿using GreenCareApi.Application.DTOs;
+﻿using GreenCareApi.Application.DTOs.Requests;
 using GreenCareApi.Application.Factories;
 using GreenCareApi.Application.Interfaces;
 using GreenCareApi.Infrastructure.Security;

@@ -1,14 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace GreenCareApi.Application.DTOs
+namespace GreenCareApi.Application.DTOs.Requests
 {
     public class RegistrationUserDto
     {
-        [Required]
-        [MinLength(4)]
-        [MaxLength(15)]
-        public string Login { get; set; }
-
         [Required]
         [EmailAddress]
         public string Email { get; set; }

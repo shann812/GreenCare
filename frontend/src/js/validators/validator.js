@@ -1,13 +1,7 @@
 export class Validator{
     static validateUserRegistration(user){
         const errors = [];
-
-        if(!user.login || user.login.trim() === ''){
-            errors.push("Enter your login"); 
-        } else if(user.login.length < 4 || user.login.length > 15){
-            errors.push("Login must be 4-15 characters");
-        }
-
+        
         if(!user.email || user.email.trim() === ''){
             errors.push("Enter your email"); 
         } else if (!user.email.includes("@")){ 

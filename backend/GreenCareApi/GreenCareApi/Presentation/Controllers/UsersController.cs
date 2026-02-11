@@ -1,4 +1,4 @@
-﻿using GreenCareApi.Application.DTOs;
+﻿using GreenCareApi.Application.DTOs.Requests;
 using GreenCareApi.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
