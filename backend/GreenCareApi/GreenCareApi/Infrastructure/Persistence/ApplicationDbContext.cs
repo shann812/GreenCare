@@ -1,4 +1,5 @@
 ﻿using GreenCareApi.Domain.Entities;
+using GreenCareApi.Domain.Entities.Flower;
 using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : DbContext
@@ -15,9 +16,21 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Role>().HasData(
             new Role { Id = 1, Name = "User" }, 
             new Role { Id = 2, Name = "Admin" }
-        ); 
+        );
+
+        modelBuilder.Entity<User>()
+            .HasOne(u => u.Role)
+            .WithMany()
+            .HasForeignKey(u => u.RoleId);
+
+        modelBuilder.Entity<UserFlower>()
+            .HasOne(f => f.Creator)
+            .WithMany()
+            .HasForeignKey(f => f.CreatorId);
     }
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Role> Roles => Set<Role>();
+    public DbSet<UserFlower> UserFlowers => Set<UserFlower>();
+    public DbSet<OfficialFlower> OfficialFlowers => Set<OfficialFlower>();
 }

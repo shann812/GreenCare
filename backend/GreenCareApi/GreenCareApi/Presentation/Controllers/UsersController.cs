@@ -1,6 +1,5 @@
 ﻿using GreenCareApi.Application.DTOs.Requests;
 using GreenCareApi.Application.Interfaces;
-using GreenCareApi.Application.Services;
 using GreenCareApi.Presentation.Responses;
 using Microsoft.AspNetCore.Mvc;
 
