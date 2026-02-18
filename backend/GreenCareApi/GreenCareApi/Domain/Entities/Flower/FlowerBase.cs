@@ -13,7 +13,5 @@ namespace GreenCareApi.Domain.Entities.Flower
 
         public string? ImageUrl { get; set; } = null!;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-        public string? AttributesJson { get; set; } = null!;
     }
 }

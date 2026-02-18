@@ -8,20 +8,38 @@ namespace GreenCareApi.Application.Services
     {
         private readonly IFileUploaderService _fileUploaderService;
         private readonly IUserContextService _userContextService;
-        public FlowerService(IFileUploaderService imgService, IUserContextService userContextService)
+        private readonly IFlowerRepository _flowerRepo;
+        private readonly IUnitOfWork _unitOfWork;
+        public FlowerService(IFileUploaderService imgService, IUserContextService userContextService, IFlowerRepository flowerRepo, IUnitOfWork unitOfWork)
         {
             _fileUploaderService = imgService;
             _userContextService = userContextService;
+            _flowerRepo = flowerRepo;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task CreateAsync(CreateUserFlowerDto dto, IFormFile flowerImg)
         {
-            var flowerImgPath = (flowerImg != null) 
-                ? await _fileUploaderService.SaveImage("flowers", flowerImg) 
+            string? flowerImgPath = null;
+            try
+            {
+                flowerImgPath = (flowerImg != null)
+                ? await _fileUploaderService.SaveImage("flowers", flowerImg)
                 : _fileUploaderService.GetNoImagePath();
 
-            var creatorId = _userContextService.GetUserId();
-            var flower = UserFlowerFactory.Create(dto, flowerImgPath, creatorId);
+                var creatorId = _userContextService.GetUserId();
+                var flower = UserFlowerFactory.Create(dto, flowerImgPath, creatorId);
+                _flowerRepo.Add(flower);
+                await _unitOfWork.SaveChangesAsync();
+            }
+            catch
+            {
+                if (flowerImgPath != null && flowerImgPath != _fileUploaderService.GetNoImagePath())
+                {
+                    _fileUploaderService.DeleteImage(flowerImgPath);
+                }
+                throw;
+            }
         }
     }
 }

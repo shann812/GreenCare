@@ -37,4 +37,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<User> Users => Set<User>();
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<FlowerBase> Flowers => Set<FlowerBase>();
+    public DbSet<FlowerAttribute> FlowerAttributes => Set<FlowerAttribute>();
 }

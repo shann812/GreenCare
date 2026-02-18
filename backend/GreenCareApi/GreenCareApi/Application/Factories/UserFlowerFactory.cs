@@ -16,7 +16,6 @@ namespace GreenCareApi.Application.Factories
                 BloomSeason = dto.BloomSeasons.Aggregate(BloomSeasons.None, (acc, season) => acc | season),
                 ImageUrl = flowerImgPath,
                 CreatedAt = DateTime.UtcNow,
-                //atributes
                 WateringInterval = dto.WateringInterval,
                 FertilizingInterval = dto.FertilizingInterval,
                 OnModeration = !dto.IsPrivate,
