@@ -6,7 +6,7 @@ namespace GreenCareApi.Domain.Entities.Flower
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public string Description { get; set; } = null!;
+        public string Description { get; set; } = "No description provided";
 
         public FlowerTypes Type { get; set; }
         public BloomSeasons BloomSeason { get; set; }

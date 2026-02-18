@@ -23,6 +23,11 @@ public class ApplicationDbContext : DbContext
             .WithMany()
             .HasForeignKey(u => u.RoleId);
 
+        modelBuilder.Entity<FlowerBase>()
+            .HasDiscriminator<string>("FlowerKind")
+            .HasValue<OfficialFlower>("Official")
+            .HasValue<UserFlower>("User");
+
         modelBuilder.Entity<UserFlower>()
             .HasOne(f => f.Creator)
             .WithMany()
@@ -31,6 +36,5 @@ public class ApplicationDbContext : DbContext
 
     public DbSet<User> Users => Set<User>();
     public DbSet<Role> Roles => Set<Role>();
-    public DbSet<UserFlower> UserFlowers => Set<UserFlower>();
-    public DbSet<OfficialFlower> OfficialFlowers => Set<OfficialFlower>();
+    public DbSet<FlowerBase> Flowers => Set<FlowerBase>();
 }

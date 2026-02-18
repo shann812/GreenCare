@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GreenCareApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260212201628_FlowerInitial")]
+    partial class FlowerInitial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,7 +24,7 @@ namespace GreenCareApi.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GreenCareApi.Domain.Entities.Flower.FlowerBase", b =>
+            modelBuilder.Entity("GreenCareApi.Domain.Entities.Flower.OfficialFlower", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -38,14 +41,17 @@ namespace GreenCareApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("CreatedByAdminId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FlowerKind")
+                    b.Property<string>("FertilizingSchedule")
                         .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
@@ -57,13 +63,72 @@ namespace GreenCareApi.Migrations
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
+                    b.Property<string>("WateringSchedule")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Flowers");
+                    b.ToTable("OfficialFlowers");
+                });
 
-                    b.HasDiscriminator<string>("FlowerKind").HasValue("FlowerBase");
+            modelBuilder.Entity("GreenCareApi.Domain.Entities.Flower.UserFlower", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.UseTphMappingStrategy();
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AttributesJson")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BloomSeason")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CreatorId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("FertilizingInterval")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastFertilizingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("LastWateringDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("OnModeration")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("WateringInterval")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("UserFlowers");
                 });
 
             modelBuilder.Entity("GreenCareApi.Domain.Entities.Role", b =>
@@ -137,53 +202,13 @@ namespace GreenCareApi.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("GreenCareApi.Domain.Entities.Flower.OfficialFlower", b =>
-                {
-                    b.HasBaseType("GreenCareApi.Domain.Entities.Flower.FlowerBase");
-
-                    b.Property<string>("CreatedByAdminId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FertilizingSchedule")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WateringSchedule")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Official");
-                });
-
             modelBuilder.Entity("GreenCareApi.Domain.Entities.Flower.UserFlower", b =>
                 {
-                    b.HasBaseType("GreenCareApi.Domain.Entities.Flower.FlowerBase");
+                    b.HasOne("GreenCareApi.Domain.Entities.User", "Creator")
+                        .WithMany()
+                        .HasForeignKey("CreatorId");
 
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("FertilizingInterval")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsPrivate")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime?>("LastFertilizingDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("LastWateringDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool?>("OnModeration")
-                        .HasColumnType("bit");
-
-                    b.Property<int?>("WateringInterval")
-                        .HasColumnType("int");
-
-                    b.HasIndex("CreatorId");
-
-                    b.HasDiscriminator().HasValue("User");
+                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("GreenCareApi.Domain.Entities.User", b =>
@@ -195,15 +220,6 @@ namespace GreenCareApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("GreenCareApi.Domain.Entities.Flower.UserFlower", b =>
-                {
-                    b.HasOne("GreenCareApi.Domain.Entities.User", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId");
-
-                    b.Navigation("Creator");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,6 @@
 ﻿namespace GreenCareApi.Domain.Entities.Flower
 {
-    public class OfficialFlower
+    public class OfficialFlower : FlowerBase
     {
         public string WateringSchedule { get; set; } = null!;
         public string FertilizingSchedule { get; set; } = null!;
