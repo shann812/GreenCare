@@ -23,5 +23,7 @@ namespace GreenCareApi.Application.DTOs.Requests
         [Range(1, 365)]
         public int? FertilizingInterval { get; set; }
         public bool IsPrivate { get; set; }
+
+        public IFormFile? FlowerImg { get; set; }
     }
 }

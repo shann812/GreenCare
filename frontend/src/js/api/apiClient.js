@@ -4,11 +4,13 @@ export class ApiClient{
     static async request(url, options = {}){
         const token = localStorage.getItem('token');
 
-        const headers = {
-            'Content-Type': 'application/json',
-            ...options.headers
-        };
+        const headers = {};
 
+        if (!(options.body instanceof FormData)) 
+        { 
+            headers["Content-Type"] = "application/json"; 
+        }
+        
         if(token){
             headers['Authorization'] = `Bearer ${token}`;
         }

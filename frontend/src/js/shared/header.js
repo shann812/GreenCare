@@ -3,6 +3,17 @@ export async function loadHeader() {
     const html = await response.text();
 
     document.getElementById('header-placeholder').innerHTML = html;
+
+    const logoutBtn = document.getElementById('logoutBtn');
+    if(logoutBtn){
+        logoutBtn.addEventListener('click', function (e){
+            localStorage.removeItem("token");
+            localStorage.removeItem("userName");
+            localStorage.removeItem("role");
+            localStorage.setItem('isLoggedIn', 'false');
+            location.reload();
+        });
+    }
 }
 
 export function updateAuthHeader() {

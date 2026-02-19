@@ -4,6 +4,7 @@ namespace GreenCareApi.Application.Interfaces
 {
     public interface IFlowerService
     {
-        Task CreateAsync(CreateUserFlowerDto dto, IFormFile flowerImg);
+        Task CreateAsync(CreateUserFlowerDto dto);
+        List<string> GetFlowerTypes();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using GreenCareApi.Application.DTOs.Requests;
 using GreenCareApi.Application.Factories;
 using GreenCareApi.Application.Interfaces;
+using GreenCareApi.Domain.Enums;
 
 namespace GreenCareApi.Application.Services
 {
@@ -18,13 +19,13 @@ namespace GreenCareApi.Application.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task CreateAsync(CreateUserFlowerDto dto, IFormFile flowerImg)
+        public async Task CreateAsync(CreateUserFlowerDto dto)
         {
             string? flowerImgPath = null;
             try
             {
-                flowerImgPath = (flowerImg != null)
-                ? await _fileUploaderService.SaveImage("flowers", flowerImg)
+                flowerImgPath = (dto.FlowerImg != null)
+                ? await _fileUploaderService.SaveImage("flowers", dto.FlowerImg)
                 : _fileUploaderService.GetNoImagePath();
 
                 var creatorId = _userContextService.GetUserId();
@@ -40,6 +41,12 @@ namespace GreenCareApi.Application.Services
                 }
                 throw;
             }
+        }
+
+        public List<string> GetFlowerTypes()
+        {
+            var types = Enum.GetNames(typeof(FlowerTypes)).ToList();
+            return types; 
         }
     }
 }
