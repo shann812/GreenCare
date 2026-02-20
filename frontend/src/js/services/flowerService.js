@@ -9,9 +9,15 @@ export class FlowerService{
     }
 
     static async createFlower(formData){
-        return ApiClient.request('/user-flowers/create',{
+        return ApiClient.request('/user-flowers/create', {
             method: 'POST',
             body: formData
+        })
+    }
+
+    static async getUserFlowerCards(page, pageSize){
+        return ApiClient.request('/user-flowers/my?page=${page}&pageSize=${pageSize}', {
+            method: 'GET'
         })
     }
 }
