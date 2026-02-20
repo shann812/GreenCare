@@ -52,12 +52,12 @@ builder.Services
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<IFlowerService, FlowerService>();
+builder.Services.AddScoped<IUserFlowersService, UserFlowersService>();
 builder.Services.AddScoped<IUserContextService, UserContextService>();
 builder.Services.AddScoped<IFileUploaderService, FileUploaderService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IFlowerRepository, FlowerRepositoty>();
+builder.Services.AddScoped<IUserFlowerRepository, UserFlowerRepositoty>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddCors(options => 

@@ -5,6 +5,7 @@ obj/
 # User-specific files
 *.user
 *.suo
+images/
 
 # Visual Studio
 .vs/

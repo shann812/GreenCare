@@ -19,7 +19,8 @@ addFlowerForm.addEventListener('submit', async function(e) {
         const formData = createFormData();
         await FlowerService.createFlower(formData);
         UIHelper.showSuccess('Flower added');
-        //to my flowers
+        
+        window.location.href = "/my-flowers.html"; //TODO: test toasts
     }
     catch(error){
         UIHelper.showErrors(error);
@@ -95,11 +96,11 @@ function createFormData(){
     });
 
     if (wateringInterval.value)
-        formData.append('wateringInterval', wateringInterval.value);
+        formData.append('wateringIntervalDays', wateringInterval.value);
 
     if (fertilizingInterval.value)
-        formData.append('fertilizingInterval', fertilizingInterval.value);
-    
+        formData.append('fertilizingIntervalDays', fertilizingInterval.value);
+
     formData.append('isPrivate', isPrivateCheckbox.checked ? "true" : "false");
 
     return formData;

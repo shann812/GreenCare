@@ -19,9 +19,9 @@ namespace GreenCareApi.Application.DTOs.Requests
         public List<BloomSeasons> BloomSeasons { get; set; } = new();
 
         [Range(1, 365)]
-        public int? WateringInterval { get; set; }
+        public int? WateringIntervalDays { get; set; }
         [Range(1, 365)]
-        public int? FertilizingInterval { get; set; }
+        public int? FertilizingIntervalDays { get; set; }
         public bool IsPrivate { get; set; }
 
         public IFormFile? FlowerImg { get; set; }

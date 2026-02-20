@@ -1,17 +1,18 @@
 ﻿using GreenCareApi.Application.DTOs.Requests;
+using GreenCareApi.Application.DTOs.Responses;
 using GreenCareApi.Application.Factories;
 using GreenCareApi.Application.Interfaces;
 using GreenCareApi.Domain.Enums;
 
 namespace GreenCareApi.Application.Services
 {
-    public class FlowerService : IFlowerService
+    public class UserFlowersService : IUserFlowersService
     {
         private readonly IFileUploaderService _fileUploaderService;
         private readonly IUserContextService _userContextService;
-        private readonly IFlowerRepository _flowerRepo;
+        private readonly IUserFlowerRepository _flowerRepo;
         private readonly IUnitOfWork _unitOfWork;
-        public FlowerService(IFileUploaderService imgService, IUserContextService userContextService, IFlowerRepository flowerRepo, IUnitOfWork unitOfWork)
+        public UserFlowersService(IFileUploaderService imgService, IUserContextService userContextService, IUserFlowerRepository flowerRepo, IUnitOfWork unitOfWork)
         {
             _fileUploaderService = imgService;
             _userContextService = userContextService;
@@ -43,9 +44,16 @@ namespace GreenCareApi.Application.Services
             }
         }
 
+        public async Task<List<MyFlowerCardDto>> GetMyFlowerCardsAsync(int page, int pageSize)
+        {
+            var userId = _userContextService.GetUserId();
+            var flowers = await _flowerRepo.GetUserFlowersAsync(userId, page, pageSize);
+            return flowers.Select(FlowerCardFactory.ToMyFlowerCardDto).ToList();
+        }
+
         public List<string> GetFlowerTypes()
         {
-            var types = Enum.GetNames(typeof(FlowerTypes)).ToList();
+            var types = Enum.GetNames(typeof(FlowerTypes)).OrderBy(t => t).ToList();
             return types; 
         }
     }
