@@ -33,6 +33,22 @@ namespace GreenCareApi.Presentation.Controllers
             return Ok(ApiResponse<List<MyFlowerCardDto>>.Ok(flowers));
         }
 
+        [Authorize]
+        [HttpPost("{id}/water")]
+        public async Task<IActionResult> WaterFlowerAsync([FromQuery] int flowerId)
+        {
+            await _userFlowerService.WaterFlowerAsync(flowerId);
+            return Ok(ApiResponse.Ok());
+        }
+
+        [Authorize]
+        [HttpPost("{id}/fertilize")]
+        public async Task<IActionResult> FertilizeFlowerAsync([FromQuery] int flowerId)
+        {
+            await _userFlowerService.FertilizeFlowerAsync(flowerId);
+            return Ok(ApiResponse.Ok());
+        }
+
         //TODO: separate in another controller
         [HttpGet("types")]
         public IActionResult GetFlowerTypes()

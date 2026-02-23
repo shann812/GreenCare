@@ -11,6 +11,7 @@ namespace GreenCareApi.Infrastructure.Repositories
         {
             _db = db;
         }
+
         public void Add(User user)
             => _db.Users.Add(user);
 

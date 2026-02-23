@@ -15,6 +15,9 @@ namespace GreenCareApi.Infrastructure.Repositories
         public void Add(FlowerBase flower)
             =>_db.Flowers.Add(flower);
 
+        public Task<UserFlower?> GetById(int flowerId)
+            => _db.Flowers.OfType<UserFlower>().FirstOrDefaultAsync(f => f.Id == flowerId);
+
         public Task<List<UserFlower>> GetUserFlowersAsync(Guid userId, int page, int pageSize)
         {
             return _db.Flowers
