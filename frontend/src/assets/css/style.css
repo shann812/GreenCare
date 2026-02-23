@@ -190,7 +190,7 @@ body {
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
-
+/* registration page */
 .registration-form-container {
     max-width: 420px;
     width: 100%;
@@ -241,7 +241,7 @@ body {
     }
 }
 
-
+/* login modal */
 #loginModal .modal-content {
   border-radius: 1rem;
   border: none;
@@ -296,7 +296,7 @@ body {
 }
 
 
-
+/* add flower page*/
 .add-flower-container {
     max-width: 960px;
     width: 100%;
@@ -481,4 +481,162 @@ body {
     .season-checkboxes {
         gap: 1rem 1.5rem;
     }
+}
+
+/* my flowers page */
+.flowers-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem 1.25rem;
+}
+
+@media (min-width: 576px) {
+    .flowers-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 992px) {
+    .flowers-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 1400px) {
+    .flowers-grid {
+        grid-template-columns: repeat(4, minmax(260px, 1fr));
+        gap: 1.8rem 1.5rem;
+    }
+}
+
+.flower-card {
+    background: white;
+    border-radius: 1.1rem;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    border: 1px solid var(--light-border);
+    transition: all 0.22s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.flower-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.14);
+}
+
+.flower-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: #f8f9fa;
+    overflow: hidden;
+}
+
+.flower-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.4s ease;
+}
+
+.flower-card:hover .flower-image {
+    transform: scale(1.05);
+}
+
+.flower-info {
+    padding: 1.25rem 1.3rem 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.flower-name {
+    font-size: 1.32rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    line-height: 1.3;
+}
+
+.flower-type {
+    color: #6c757d;
+    font-size: 0.98rem;
+    margin-bottom: 1rem;
+}
+
+.flower-statuses {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-bottom: 1.1rem;
+}
+
+.status-badge {
+    padding: 0.42rem 0.95rem;
+    border-radius: 2rem;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+}
+
+.status-water.overdue,
+.status-fert.overdue {
+    background: #f8d7da;
+    color: #c82333;
+    border-color: #f5c6cb;
+}
+
+.status-water.soon,
+.status-fert.soon {
+    background: #fff3cd;
+    color: #856404;
+    border-color: #ffeeba;
+}
+
+.flower-privacy {
+    font-size: 0.94rem;
+    color: #555;
+    margin-top: auto;
+    margin-bottom: 1.2rem;
+}
+
+.flower-actions {
+    display: flex;
+    gap: 0.9rem;
+    margin-top: auto;
+}
+
+.btn-action {
+    flex: 1;
+    padding: 0.6rem 1rem;
+    font-size: 0.94rem;
+    border-radius: 0.65rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.btn-water {
+    background: #e9f5ff;
+    color: var(--primary);
+    border: 1px solid #c5e0ff;
+}
+
+.btn-water:hover {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.btn-fertilize {
+    background: #f8f1ff;
+    color: #6f42c1;
+    border: 1px solid #d4c2ff;
+}
+
+.btn-fertilize:hover {
+    background: #6f42c1;
+    color: white;
+    border-color: #6f42c1;
 }

@@ -60,30 +60,71 @@ function createFlowerCard(cardData)
     cardEl.className = 'flower-card';
 
     const now = new Date();
-    const lastWater = new Date(cardData.lastWatering);
-    const lastFert = new Date(cardData.lastFertilizing);
 
-    const daySinceWater = Math.floor((now - lastWater) / (1000 * 60 * 60 * 24));
-    const daySinceFert = Math.floor((now - lastFert) / (1000 * 60 * 60 * 24));
+    let daysSinceWaterLabel = 'never';
+    let waterStatus = '';
+    if(cardData.lastWatering != null){
+        const lastWater = new Date(cardData.lastWatering);
+        const daysSinceWater = Math.floor((now - lastWater) / (1000 * 60 * 60 * 24));
+        daysSinceWaterLabel = `${daysSinceWater} days`;
 
-    //if() add style
+        if (daysSinceWater >= cardData.wateringIntervalDays) {
+            waterStatus = 'overdue';
+        } else if (daysSinceWater >= cardData.wateringIntervalDays - 1) {
+            waterStatus = 'soon';
+        }
+    }
+    
+    let daysSinceFertLabel = 'never';
+    let fertStatus = '';
+    if(cardData.lastFertilizing != null){
+        const lastFert = new Date(cardData.lastFertilizing);
+        const daysSinceFert = Math.floor((now - lastFert) / (1000 * 60 * 60 * 24));
+        daysSinceFertLabel = `${daysSinceFert} days`;
+
+        if (daysSinceFert >= cardData.fertilizingIntervalDays) {
+            fertStatus = 'overdue';
+        } else if (daysSinceFert >= cardData.fertilizingIntervalDays - 1) {
+            fertStatus = 'soon';
+        }
+    }
 
     cardEl.innerHTML = `
-        <img src="https://localhost:7051${cardData.imageUrl}" /><br>
-        <h3>${cardData.name}</h3>
-        <p>${cardData.type}</p>
-        <p>${cardData.isPrivate ? "private" : "public"}</p>
-        <p>${cardData.lastWatering ?? "never"}</p>
-        <p>${cardData.lastFertilizing ?? "never"}</p>
+        <div class="flower-image-wrapper">
+            <img class="flower-image" src="https://localhost:7051${cardData.imageUrl}">
+            ${cardData.onModeration ? '<span class="badge-moderation">On moderation</span>' : ''}
+        </div>
         
+        <div class="flower-info">
+            <h3 class="flower-name">${cardData.name}</h3>
+            <p class="flower-type">${cardData.type}</p>
+            
+            <div class="flower-statuses">
+                <span class="status-badge status-water ${waterStatus}">
+                    Last watering: ${daysSinceWaterLabel}
+                </span>
+                <span class="status-badge status-fert ${fertStatus}">
+                    Last fertilizing: ${daysSinceFertLabel}
+                </span>
+            </div>
+
+            <p class="flower-privacy">
+                ${cardData.isPrivate ? 'Private' : 'Public'}
+            </p>
+
+            <div class="flower-actions">
+                <button class="btn-action btn-water" data-id="${cardData.id}" title="I watered">
+                    Watered
+                </button>
+                <button class="btn-action btn-fertilize" data-id="${cardData.id}" title="I fertilized">
+                    Fertilized
+                </button>
+            </div>
+        </div>
     `;
-        //и тут ещё две кнопки надо типо полил и удобрил
-    
-    if(cardData.onModeration){
-        cardEl.innerHTML = `
-            <p>on moderation</p>
-        `;
-    };
+
+    cardEl.querySelector('.btn-water')?.addEventListener('click', () => handleWatering(cardData.id));
+    cardEl.querySelector('.btn-fertilize')?.addEventListener('click', () => handleFertilizing(cardData.id));
 
     return cardEl;
 }
